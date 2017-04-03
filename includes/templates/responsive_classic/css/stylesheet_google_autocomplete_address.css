@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
+select#autoCompleteCountry {
+  margin-left: 0;
+  height: 40px;
+}
+
+#billing_hide_detailed_address {
+  display: none;
+}
+
+#billing_address_not_found {
+  display: inline-block;
+}
+
+.details_billing {
+  display: none;
+}
