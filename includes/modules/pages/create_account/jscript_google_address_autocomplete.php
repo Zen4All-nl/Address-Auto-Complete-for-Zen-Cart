@@ -6,7 +6,7 @@
  */
 ?>
 <script type="text/javascript">
-  jQuery(function ($) {
+  $(function ($) {
     $(document).ready(function () {
       //show the hidden fields manually
       $('#billing_address_not_found').click(function (e) {
@@ -42,11 +42,13 @@
 if (ACCOUNT_STATE == 'true') {
   if ($flag_show_pulldown_states == false) {
     if (GAA_STATE_NAME_LENGTH == 'long') {
-      echo "administrative_area_level_1: 'long_name',";
-      echo "\n";
+?>
+    administrative_area_level_1: 'long_name',
+<?php
     } elseif (GAA_STATE_NAME_LENGTH == 'short') {
-      echo "administrative_area_level_1: 'short_name',";
-      echo "\n";
+?>
+    administrative_area_level_1: 'short_name',
+<?php
     }
   }
 }
@@ -54,6 +56,7 @@ if (ACCOUNT_STATE == 'true') {
     country: 'short_name',
     postal_code: 'short_name'
   };
+
   function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical location types.
     autocomplete = new google.maps.places.Autocomplete(
@@ -84,50 +87,38 @@ if (ACCOUNT_STATE == 'true') {
   function fillInAddress() {
     // Get the place details from the autocomplete object.
     var place = autocomplete.getPlace();
+  /*
     for (var component in componentForm) {
       document.getElementById(component).value = '';
       document.getElementById(component).disabled = false;
     }
+  */
     // Get each component of the address from the place details
     // and fill the corresponding field on the form.
     var countriesArray = <?php echo json_encode(gaa_countries()) ; ?>;
     for (var i = 0; i < place.address_components.length; i++) {
       var addressType = place.address_components[i].types[0];
       if (componentForm[addressType]) {
-        var val = place.address_components[i][componentForm[addressType]];
+        var addressVal = place.address_components[i][componentForm[addressType]];
         if (addressType == 'locality') {
-          document.getElementById(addressType).value = val;
+          $('#city').val(addressVal);
         } else if (addressType == 'postal_code') {
-          document.getElementById(addressType).value = val;
+          $('#postal_code').val(addressVal);
         } else if (addressType == 'administrative_area_level_1') {
-          document.getElementById(addressType).value = val;
+          $('#state').val = addressVal;
         } else if (addressType == 'country') {
           for (var j = 0; j < countriesArray.length; j++) {
             var countries_iso_code_2 = countriesArray[j].countries_iso_code_2;
             if (countries_iso_code_2 == place.address_components[i][componentForm[addressType]]) {
     //          var counrtyShortName = place.address_components[i][componentForm[addressType]]
               var countryId = countriesArray[j].countries_id;
-              document.getElementById(addressType).value = countryId;
+              $('#country').val(countryId);
             }
           }
         } else if (addressType == 'street_number') {
-          document.getElementById('route').value = val;
+          $('#street_number').val(addressVal);
         } else if (addressType == 'route') {
-          for (var j = 0; j < countriesArray.length; j++) {
-            var countries_iso_code_2 = countriesArray[j].countries_iso_code_2;
-            if ((countries_iso_code_2 == place.address_components[5]['short_name']) || (countries_iso_code_2 == place.address_components[6]['short_name'])) { // The numbers 5 and 6 in 'place.address_components[5]['short_name']' are hardcoded for getting country name. This may be changed by Google in the future is they add or remove info from the array
-              var addressFormat = countriesArray[j].address_format_id;
-            }
-          }
-          if ((addressFormat == 1) || (addressFormat == 2)) {
-            var streetName = place.address_components[i][componentForm[addressType]];
-            var houseNumber = document.getElementById('route').value;
-            document.getElementById('route').value = houseNumber + ' ' + streetName;
-          } else if (addressFormat == 5) {
-            var streetName = place.address_components[i][componentForm[addressType]];
-            var houseNumber = document.getElementById('route').value;
-            document.getElementById('route').value = streetName + ' ' + houseNumber;
-          }
+            $('#street_address').val(addressVal);
         }
       }
     }

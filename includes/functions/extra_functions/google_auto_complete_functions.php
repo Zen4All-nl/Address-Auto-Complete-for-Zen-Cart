@@ -45,7 +45,9 @@ function autoCompleteCountryList($name, $selected = '', $parameters = '') {
     $countries_name = $db->Execute("SELECT countries_name
                                     FROM " . TABLE_COUNTRIES . "
                                     WHERE countries_iso_code_2 = '" . $val . "'");
-    $countries_array[] = array('id' => $val, 'text' => $countries_name->fields['countries_name']);
+    $countries_array[] = array(
+      'id' => $val,
+      'text' => $countries_name->fields['countries_name']);
   }
   // now add anything not in the defaults list:
   foreach ($countries_values as $key => $value) {

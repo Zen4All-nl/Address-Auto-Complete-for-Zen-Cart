@@ -71,9 +71,11 @@
   <a href="#" id="billing_address_not_found"><?php echo GAA_NOT_FOUND;?></a>
 </div>
 <div class="details_billing">
-<label class="inputLabel" for="route"><?php echo ENTRY_STREET_ADDRESS; ?></label>
-  <?php echo zen_draw_input_field('street_address', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_street_address', '40') . ' id="route" placeholder="' . ENTRY_STREET_ADDRESS_TEXT . '"'. ((int)ENTRY_STREET_ADDRESS_MIN_LENGTH > 0 ? ' required' : '')); ?>
-<?php echo zen_draw_hidden_field('house_no', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_house_no', '10') . ' id="street_number" placeholder="' . ENTRY_HOUSE_NO_TEXT . '"'. ((int)ENTRY_HOUSE_NO_MIN_LENGTH > 0 ? ' required' : '')); ?>
+<label class="inputLabel" for="street_address"><?php echo ENTRY_STREET_ADDRESS; ?></label>
+  <?php echo zen_draw_input_field('street_address', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_street_address', '40') . ' id="street_address" placeholder="' . ENTRY_STREET_ADDRESS_TEXT . '"'. ((int)ENTRY_STREET_ADDRESS_MIN_LENGTH > 0 ? ' required' : '')); ?>
+<br class="clearBoth" />
+<label class="inputLabel" for="street_number"><?php echo ENTRY_HOUSE_NUMBER; ?></label>
+<?php echo zen_draw_input_field('street_number', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_street_number', '10') . ' id="street_number" placeholder="' . ENTRY_HOUSE_NO_TEXT . '"'. ((int)ENTRY_HOUSE_NO_MIN_LENGTH > 0 ? ' required' : '')); ?>
 <br class="clearBoth" />
 
 <?php echo zen_draw_input_field('should_be_empty', '', ' size="40" id="CAAS" style="visibility:hidden; display:none;" autocomplete="off"'); ?>
@@ -89,7 +91,7 @@
 ?>
 
 <label class="inputLabel" for="city"><?php echo ENTRY_CITY; ?></label>
-<?php echo zen_draw_input_field('city', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_city', '40') . ' id="locality" placeholder="' . ENTRY_CITY_TEXT . '"'. ((int)ENTRY_CITY_MIN_LENGTH > 0 ? ' required' : '')); ?>
+<?php echo zen_draw_input_field('city', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_city', '40') . ' id="city" placeholder="' . ENTRY_CITY_TEXT . '"'. ((int)ENTRY_CITY_MIN_LENGTH > 0 ? ' required' : '')); ?>
 <br class="clearBoth" />
 
 <?php
@@ -108,7 +110,7 @@
 <?php } ?>
 <label class="inputLabel" for="state" id="stateLabel"><?php echo $state_field_label; ?></label>
 <?php
-    echo zen_draw_input_field('state', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_state', '40') . ' id="administrative_area_level_1" placeholder="' . ENTRY_STATE_TEXT . '"');
+    echo zen_draw_input_field('state', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_state', '40') . ' id="state" placeholder="' . ENTRY_STATE_TEXT . '"');
     if ($flag_show_pulldown_states == false) {
       echo zen_draw_hidden_field('zone_id', $zone_name, ' ');
     }
